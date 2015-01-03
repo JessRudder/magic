@@ -17,10 +17,28 @@ class Card < ActiveRecord::Base
   # end
 
   def get_card_data
-    
+    puts another_page?
   end
 
   def another_page?
+    puts "Got to another_page?"
+    get_links.each do |link|
+      puts "In the logic branch"
+      if check_link_text(link)
+        true
+        break
+      else
+        false
+      end
+    end
+  end
+
+  def get_links
+    @doc.css("a")
+  end
+
+  def check_link_text(link)
+    link.text.include?(">")
   end
 
   
