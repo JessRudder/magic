@@ -9,15 +9,29 @@ class CardScraper
   end
 
   def get_card_data
-    another_page?
-    make_card_array
-    make_cards
+    keep_scraping = true
+    while keep_scraping
+      if another_page?
+        make_card_array
+        make_cards
+        @deck_url = deck_url
+        @doc = Nokogiri::HTML(open(deck_url))
+      else
+        make_card_array
+        make_cards
+        keep_scraping = false
+      end
+    end
   end
 
   def another_page?
     more_pages = false
     get_links.each do |link|
-      more_pages = true if check_link_text(link)
+      if check_link_text(link)
+        more_pages = true
+        @deck_url = make_full_page_url(link.attributes["href"].value)
+        break
+      end
     end
     more_pages
   end
@@ -77,13 +91,17 @@ class CardScraper
   end
 
   def find_card_image_link(current_card)
-    make_full_url(current_card.css(".leftCol a img").first.attributes["src"].value)
+    make_full_card_url(current_card.css(".leftCol a img").first.attributes["src"].value)
   end
 
   private
 
-  def make_full_url(partial_url)
+  def make_full_card_url(partial_url)
     partial_url.gsub("../../", "http://gatherer.wizards.com/")
+  end
+
+  def make_full_page_url(partial_url)
+    partial_url.prepend("http://gatherer.wizards.com")
   end
 
 end
