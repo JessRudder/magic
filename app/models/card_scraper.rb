@@ -2,10 +2,15 @@ class CardScraper
   attr_accessor :deck_url, :card_info
   attr_reader :doc
 
-  def initialize(deck_url)
-    @deck_url = deck_url
+  @base_url = base_url
+  @deck_list = []
+  
+  def initialize
+    start_url_iteration
+  end
+
+  def start_url_iteration
     @doc = Nokogiri::HTML(open(deck_url))
-    get_card_data
   end
 
   def get_card_data
