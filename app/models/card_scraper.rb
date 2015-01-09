@@ -2,6 +2,7 @@ class CardScraper
   attr_accessor :deck_url, :card_info, :base_url, :deck_list
   attr_reader :doc
 
+  @@deck_url = ""
   @@base_url = "http://gatherer.wizards.com/Pages/Search/Default.aspx?set="
   @@deck_list = ["Alara%20Reborn", "Alliances", "Antiquities", "Apocalypse", 
     "Arabian%20Nights", "Archenemy", "Avacyn%20Restored", "Battle%20Royale%20Box%20Set", 
@@ -50,7 +51,7 @@ class CardScraper
 
   def start_url_iteration
     @@deck_list.each do |deck|
-      @doc = Nokogiri::HTML(open("#{@@base_url}[#{deck}]'"))
+      @doc = Nokogiri::HTML(open("#{@@base_url}[#{deck}]"))
       get_card_data
     end
   end
@@ -61,8 +62,8 @@ class CardScraper
       if another_page?
         make_card_array
         make_cards
-        @deck_url = deck_url
-        @doc = Nokogiri::HTML(open(deck_url))
+        @@deck_url
+        @doc = Nokogiri::HTML(open(@@deck_url))
       else
         make_card_array
         make_cards
@@ -76,7 +77,7 @@ class CardScraper
     get_links.each do |link|
       if check_link_text(link)
         more_pages = true
-        @deck_url = make_full_page_url(link.attributes["href"].value)
+        @@deck_url = make_full_page_url(link.attributes["href"].value)
         break
       end
     end
