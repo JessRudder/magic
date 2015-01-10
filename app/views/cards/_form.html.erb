@@ -1,4 +1,15 @@
-<%= form_for(@Card) do |f| %>
+<!--     t.string   "title"
+    t.string   "mana_cost"
+    t.integer  "converted_mana_cost"
+    t.string   "card_type"
+    t.text     "rules"
+    t.string   "set"
+    t.string   "color"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_link" -->
+
+<%= bootstrap_form_for(@Card) do |f| %>
   <% if @Card.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@Card.errors.count, "error") %> prohibited this Card from being saved:</h2>
@@ -9,6 +20,12 @@
       </ul>
     </div>
   <% end %>
+  <%= f.text_field :title %>
+  <%= f.text_field :converted_mana_cost %>
+  <%= f.text_field :card_type %>
+  <%= f.text_area  :rules %>
+  <%= f.text_field :set %>
+  <%= f.text_field :color %>
 
   <div class="actions">
     <%= f.submit %>
