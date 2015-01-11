@@ -9,12 +9,12 @@
     t.datetime "updated_at"
     t.string   "image_link" -->
 
-<%= bootstrap_form_for(@Card) do |f| %>
-  <% if @Card.errors.any? %>
+<%= bootstrap_form_for(@card) do |f| %>
+  <% if @card.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@Card.errors.count, "error") %> prohibited this Card from being saved:</h2>
+      <h2><%= pluralize(@card.errors.count, "error") %> prohibited this Card from being saved:</h2>
       <ul>
-      <% @Card.errors.full_messages.each do |message| %>
+      <% @card.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

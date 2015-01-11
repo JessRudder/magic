@@ -93,11 +93,11 @@ class CardScraper
   end
 
   def make_card_array
-    @Card_info = @doc.css(".cardItem")
+    @card_info = @doc.css(".cardItem")
   end
 
   def make_cards
-    @Card_info.each do |current_card|
+    @card_info.each do |current_card|
       this_card = {:title => find_title(current_card), :mana_cost => find_mana_cost(current_card), 
         :converted_mana_cost => find_converted_mana_cost(current_card), :card_type => find_card_type(current_card), :rules => find_rules(current_card),
         :set => find_set(current_card), :color => find_color(current_card), :image_link => find_card_image_link(current_card)}

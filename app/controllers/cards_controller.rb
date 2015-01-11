@@ -4,44 +4,45 @@ class CardsController < ApplicationController
   respond_to :html
 
   def index
-    @Cards = Card.all
-    respond_with(@Cards)
+    @cards = Card.all.paginate(page: params[:page], per_page: 15)
+    # @cards = Card.all
+    respond_with(@cards)
   end
 
   def show
-    respond_with(@Card)
+    respond_with(@card)
   end
 
   def new
-    @Card = Card.new
-    respond_with(@Card)
+    @card = Card.new
+    respond_with(@card)
   end
 
   def edit
   end
 
   def create
-    @Card = Card.new(Card_params)
-    @Card.save
-    respond_with(@Card)
+    @card = Card.new(card_params)
+    @card.save
+    respond_with(@card)
   end
 
   def update
-    @Card.update(Card_params)
-    respond_with(@Card)
+    @card.update(card_params)
+    respond_with(@card)
   end
 
   def destroy
-    @Card.destroy
-    respond_with(@Card)
+    @card.destroy
+    respond_with(@card)
   end
 
   private
     def set_Card
-      @Card = Card.find(params[:id])
+      @card = Card.find(params[:id])
     end
 
-    def Card_params
-      params[:Card]
+    def card_params
+      params[:card]
     end
 end
