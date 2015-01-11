@@ -1,5 +1,6 @@
 <h1>Listing Cards</h1>
 
+<%= will_paginate @cards %>
 <table>
   <thead>
     <tr>
@@ -17,7 +18,9 @@
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @cards %>
 <br>
 
 <%= link_to 'New Card', new_card_path %>
+
+
