@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :cards
+  Magic::Application.routes.draw do
+    resources :cards, only: [:index]
+    root to: "cards#index"
+  end
+  
+  resources :cards, except: [:index]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

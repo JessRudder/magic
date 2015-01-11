@@ -86,3 +86,4 @@ gem "airbrake"
 gem 'bootstrap_form'
 gem 'pickadate-rails'
 gem 'nokogiri'
+gem 'will_paginate'
