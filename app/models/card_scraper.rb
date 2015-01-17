@@ -101,7 +101,8 @@ class CardScraper
     @card_info.each do |current_card|
       this_card = {:title => find_title(current_card), :mana_cost => find_mana_cost(current_card), 
         :converted_mana_cost => find_converted_mana_cost(current_card), :card_type => find_card_type(current_card), :rules => find_rules(current_card),
-        :set => find_set(current_card), :color => find_color(current_card), :image_link => find_card_image_link(current_card)}
+        :set => find_set_and_rarity(current_card)[0], :rarity => find_set_and_rarity(current_card)[1], :color => find_color(current_card), 
+        :image_link => find_card_image_link(current_card)}
       Card.create(this_card)
     end
   end
@@ -133,10 +134,12 @@ class CardScraper
     current_card.css(".rulesText").text.strip
   end
 
-  def find_set(current_card)
+  def find_set_and_rarity(current_card)
     #may be possible to simplify, also will need to remove (common), (rare), etc
-    current_card.css(".rightCol img").first.attributes["title"].value
-    # binding.pry
+    full_set = current_card.css(".rightCol img").first.attributes["title"].value
+    set = full_set.slice(0,full_set.index(" ("))
+    rarity = full_set.slice(full_set.index("(")+1,full_set.length).gsub(")","")
+    [set,rarity]
   end
 
   def find_color(current_card)
