@@ -135,7 +135,6 @@ class CardScraper
   end
 
   def find_set_and_rarity(current_card)
-    #may be possible to simplify, also will need to remove (common), (rare), etc
     full_set = current_card.css(".rightCol img").first.attributes["title"].value
     set = full_set.slice(0,full_set.index(" ("))
     rarity = full_set.slice(full_set.index("(")+1,full_set.length).gsub(")","")
@@ -143,8 +142,9 @@ class CardScraper
   end
 
   def find_color(current_card)
-    #this info is not currently available
-    ""
+    mana_list = current_card.css(".manaCost").css("img")
+    mana = mana_list.collect {|el| el.attributes["alt"].value}
+    mana.last
   end
 
   def find_card_image_link(current_card)
