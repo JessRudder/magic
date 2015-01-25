@@ -11,6 +11,10 @@ $(function() {
     function(message) {
       document.querySelector('#messages').innerHTML += '<li>' + message + '</li>';
     })
+
+  document.querySelector('button#add-card').onclick = function() {
+    $('.school-day.modal').modal('show');
+  };
 });
 // Here we send the message in the websocket
 function send(message) {

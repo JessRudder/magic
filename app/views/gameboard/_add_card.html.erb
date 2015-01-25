@@ -16,9 +16,9 @@
           <h4 class="modal-title">Add a New Card</h4>
         </div>
 
-        <%= bootstrap_form_tag(:url => card_path, :layout => :horizontal, :remote => true) do |f| %>
+        <%= bootstrap_form_tag(:url => card_path(@card), :layout => :horizontal, :remote => true) do |f| %>
           <div class="modal-body">
-            <p class="lead">Congrats, you received a discount. Confirm your name and email and we'll apply a <strong><%= number_to_currency(discount_object.discount_value) %></strong> discount when you enroll.</p>
+            <p class="lead">Select the card that you want to add to the game board.</p>
 
             <%= f.text_field :set, :required => true %>
             <%= f.collection_select(:set, Card.all, :id, :set) %>
